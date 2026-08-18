@@ -15,9 +15,24 @@
     body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}
     a{color:inherit;text-decoration:none}
     .wrap{max-width:var(--max);margin:auto;padding:0 28px}
-    nav{height:78px;display:flex;align-items:center;justify-content:space-between}
+    nav{
+      position:sticky;top:14px;z-index:100;
+      height:64px;display:flex;align-items:center;justify-content:space-between;
+      margin:14px 0 0;padding:0 16px;
+      background:rgba(247,247,245,.82);backdrop-filter:blur(16px);
+      -webkit-backdrop-filter:blur(16px);border:1px solid rgba(222,222,217,.8);
+      border-radius:18px;
+    }
     .brand{font-weight:750;letter-spacing:-.03em}
     nav .links{display:flex;gap:26px;font-size:14px;color:#555}
+    nav .links a{transition:color .2s ease}
+    nav .links a:hover{color:var(--text)}
+    .resume-btn{
+      display:inline-flex;align-items:center;gap:7px;
+      background:#111;color:#fff;padding:10px 15px;border-radius:12px;
+      font-size:13px;font-weight:650;transition:.2s ease;
+    }
+    .resume-btn:hover{transform:translateY(-1px);background:#2a2a2a}
     .hero{padding:105px 0 125px;max-width:900px}
     .eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);margin-bottom:24px}
     h1{font-size:clamp(52px,8vw,92px);line-height:.95;letter-spacing:-.065em;margin:0 0 30px;font-weight:760}
@@ -54,8 +69,76 @@
     .contact h2{font-size:clamp(44px,7vw,78px);max-width:700px}
     .contact-links{display:flex;gap:18px;flex-wrap:wrap;color:#555;font-size:14px}
     .fine{font-size:12px;color:#999;margin-top:70px}
+
+
+
+    .brand-logo{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      min-width:180px;
+      height:32px;
+      overflow:hidden;
+      font-weight:750;
+      letter-spacing:-.03em;
+    }
+    .brand-full{
+      display:inline-block;
+      white-space:nowrap;
+      transform-origin:left center;
+      animation:
+        brandSettle 650ms cubic-bezier(.16,1,.3,1) 150ms both,
+        brandFade 420ms cubic-bezier(.4,0,.2,1) 1450ms forwards;
+    }
+    .brand-dot{
+      display:inline-block;
+      margin-left:2px;
+      opacity:0;
+      transform:translateX(36px) scale(.92);
+      animation:dotArrive 620ms cubic-bezier(.16,1,.3,1) 760ms forwards;
+    }
+    .brand-short{
+      position:absolute;
+      left:0;
+      top:50%;
+      transform:translateY(-50%) scale(.96);
+      transform-origin:left center;
+      opacity:0;
+      animation:shortLogo 560ms cubic-bezier(.16,1,.3,1) 1510ms forwards;
+    }
+    @keyframes brandSettle{
+      0%{opacity:0;transform:translateX(-8px);filter:blur(2px)}
+      100%{opacity:1;transform:translateX(0);filter:blur(0)}
+    }
+    @keyframes dotArrive{
+      0%{opacity:0;transform:translateX(36px) scale(.92)}
+      65%{opacity:1;transform:translateX(-2px) scale(1.02)}
+      100%{opacity:1;transform:translateX(0) scale(1)}
+    }
+    @keyframes brandFade{
+      0%{opacity:1;transform:translateX(0) scaleX(1);filter:blur(0)}
+      100%{opacity:0;transform:translateX(-2px) scaleX(.92);filter:blur(1px)}
+    }
+    @keyframes shortLogo{
+      0%{opacity:0;transform:translateY(-50%) translateX(2px) scale(.96);filter:blur(1px)}
+      100%{opacity:1;transform:translateY(-50%) translateX(0) scale(1);filter:blur(0)}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .brand-full,.brand-dot,.brand-short{animation:none}
+      .brand-full,.brand-dot{display:none}
+      .brand-short{opacity:1;transform:translateY(-50%) scale(1)}
+    }
+    .floating-resume{
+      position:fixed;right:24px;bottom:24px;z-index:110;
+      display:inline-flex;align-items:center;gap:6px;
+      background:#111;color:#fff;padding:9px 13px;border-radius:999px;
+      font-size:12px;font-weight:650;
+      box-shadow:0 8px 28px rgba(0,0,0,.14);
+      transition:transform .2s ease,background .2s ease;
+    }
+    .floating-resume:hover{transform:translateY(-2px);background:#2a2a2a}
     @media(max-width:760px){
-      nav .links{display:none}.hero{padding:70px 0 85px}
+      nav .links{display:none}.resume-btn{padding:9px 12px}.floating-resume{right:16px;bottom:16px}.hero{padding:70px 0 85px}
       .grid,.labs{grid-template-columns:1fr}.about{grid-template-columns:1fr;gap:35px}
       .role{grid-template-columns:1fr;gap:8px}.now,.contact{display:block}
       .contact-links{margin-top:30px}
@@ -65,9 +148,12 @@
 <body>
   <div class="wrap">
     <nav>
-      <a class="brand" href="#">PS.</a>
+      <a class="brand brand-logo" href="#" aria-label="Prakhar Singh">
+        <span class="brand-full">Prakhar Singh<span class="brand-dot">.</span></span>
+        <span class="brand-short">PS.</span>
+      </a>
       <div class="links">
-        <a href="#work">Work</a><a href="#labs">Labs</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
+        <a href="#work">Work</a><a href="#labs">Labs</a><a href="#experience">Experience</a><a href="#about">About</a><a href="#now">Now</a><a href="#contact">Contact</a>
       </div>
     </nav>
 
@@ -76,6 +162,9 @@
         <div class="eyebrow">Project Manager · Product Thinker · Builder</div>
         <h1>I manage projects.<br>I <span class="accent">think in products.</span></h1>
         <p>I turn messy problems into simple, useful experiences — and when a small problem can be solved with AI, I usually end up building the solution myself.</p>
+        <div style="margin-top:32px">
+          <a href="#work" style="display:inline-flex;align-items:center;padding:10px 15px;border:1px solid var(--line);border-radius:12px;font-size:13px;font-weight:650;background:#fff">See my work ↓</a>
+        </div>
       </header>
 
       <section id="work">
@@ -156,7 +245,7 @@
         </div>
       </section>
 
-      <section>
+      <section id="about">
         <div class="section-head"><h2>About</h2></div>
         <div class="about">
           <div><div class="eyebrow">The short version</div><h2>PM by role.<br>Product person by instinct.</h2></div>
@@ -168,7 +257,7 @@
         </div>
       </section>
 
-      <section>
+      <section id="now">
         <div class="section-head"><h2>Now</h2></div>
         <div class="now">
           <strong>Building, experimenting, and looking for the next useful problem to solve.</strong>
@@ -189,5 +278,6 @@
       <div class="fine">© 2026 Prakhar Singh. Built with curiosity.</div>
     </footer>
   </div>
+  <a class="floating-resume" href="resume.pdf" download>Resume ↗</a>
 </body>
 </html>
