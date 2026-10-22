@@ -50,7 +50,7 @@ html.static #bg{transition:background-color .8s ease}
 #stars{position:fixed;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
 main{position:relative;z-index:3}
 /* film grain over everything, flickers by jumping its tile around */
-#grain{position:fixed;left:-50%;top:-50%;width:200%;height:200%;z-index:85;pointer-events:none;opacity:.15;background-size:180px 180px;animation:grain .7s steps(5) infinite}
+#grain{position:fixed;left:-50%;top:-50%;width:200%;height:200%;z-index:85;pointer-events:none;opacity:.15;background-size:180px 180px;animation:grain .7s steps(5) infinite;will-change:transform}
 @keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-5%)}60%{transform:translate(-6%,-2%)}80%{transform:translate(4%,4%)}100%{transform:translate(-2%,-3%)}}
 /* the inset device "screen": 10px black + 20px radius */
 .frame{position:fixed;inset:10px;border-radius:20px;box-shadow:0 0 0 60px #000;pointer-events:none;z-index:90}
@@ -177,7 +177,7 @@ main{position:relative;z-index:3}
 /* =====================================================================
    3. YEARS
    ===================================================================== */
-.years{display:flex;align-items:center;justify-content:center;text-align:center;padding:12vh 6vw}
+.years{display:flex;align-items:center;justify-content:center;text-align:center;padding:6vh 6vw;min-height:75vh}
 .years-big{font-size:clamp(90px,17vw,330px);line-height:.95;margin:0;font-weight:300;letter-spacing:-.02em;white-space:nowrap}
 .yl{display:inline-block;padding:0 .02em}
 .squiggle{display:block;width:min(660px,72vw);height:auto;margin:6px auto 30px;overflow:visible}
@@ -206,7 +206,7 @@ main{position:relative;z-index:3}
 /* =====================================================================
    5. NOIDA
    ===================================================================== */
-.noida{min-height:115vh;padding:18vh 0 16vh;display:flex;flex-direction:column;justify-content:center}
+.noida{min-height:80vh;padding:9vh 0 8vh;display:flex;flex-direction:column;justify-content:center}
 .noida-title{font-size:clamp(70px,13vw,250px);font-weight:900;line-height:.82;margin:0 6vw;display:flex;flex-wrap:wrap;gap:0 .22em}
 .scene{display:block;width:100%;height:auto;margin-top:2vh;color:var(--text);overflow:visible}
 .steam{stroke-dasharray:12 10;animation:steam 1.6s linear infinite;opacity:.7}
@@ -367,7 +367,7 @@ html.static .ring{transform:scale(var(--k));opacity:.45}
   .belief-sub{font-size:16px;margin-top:20px}
   .doodle{width:78px}
   .d1{left:6vw;top:-20vh}.d2{right:6vw;top:-18vh}.d3{right:8vw;bottom:-19vh}
-  .noida{min-height:auto;padding:16vh 0 12vh}
+  .noida{min-height:auto;padding:9vh 0 7vh}
   .noida-title{font-size:18vw}
   .scene{width:190%;margin-left:-45%}
   .noida-text{font-size:19px;margin:3vh 7vw 0}
@@ -1191,7 +1191,7 @@ const CONFIG = {
 
   function startLenis() {
     if (typeof Lenis === 'undefined') return () => {};
-    lenis = new Lenis({ lerp: .085, smoothWheel: true });
+    lenis = new Lenis({ lerp: .14, wheelMultiplier: 1.15, smoothWheel: true });
     lenis.on('scroll', ScrollTrigger.update);
     const tick = t => lenis.raf(t * 1000);
     gsap.ticker.add(tick);
@@ -1200,7 +1200,7 @@ const CONFIG = {
   }
 
   function scrollToY(y) {
-    if (lenis) lenis.scrollTo(y, { duration: 1.8, easing: t => 1 - Math.pow(1 - t, 4) });
+    if (lenis) lenis.scrollTo(y, { duration: 1.1, easing: t => 1 - Math.pow(1 - t, 4) });
     else window.scrollTo({ top: y, behavior: reduceQ.matches ? 'auto' : 'smooth' });
   }
 
@@ -1277,14 +1277,14 @@ const CONFIG = {
     if (desk) {
       const dist = () => Math.max(0, track.scrollWidth - innerWidth);
       const tl = gsap.timeline({
-        scrollTrigger: { trigger: sec, start: 'top top', end: () => '+=' + (dist() * 1.1 + innerHeight * .4), pin: true, scrub: 1, invalidateOnRefresh: true }
+        scrollTrigger: { trigger: sec, start: 'top top', end: () => '+=' + (dist() * .85 + innerHeight * .2), pin: true, scrub: .35, invalidateOnRefresh: true }
       });
       tl.to(track, { x: () => -dist(), ease: 'none', duration: 1 }, 0)
         .to(chars, { y: i => Math.sin(i * 1.7) * 36, rotation: i => Math.cos(i * 2.3) * 7, ease: 'sine.inOut', duration: .5, stagger: { amount: .5 } }, 0)
         .to('.hello-foot', { opacity: 0, duration: .15 }, 0);
     } else {
       gsap.to(chars, { y: i => Math.sin(i * 1.7) * 22, rotation: i => Math.cos(i * 2.3) * 8, ease: 'none',
-        scrollTrigger: { trigger: sec, start: 'top top', end: 'bottom top', scrub: 1 } });
+        scrollTrigger: { trigger: sec, start: 'top top', end: 'bottom top', scrub: .35 } });
     }
   }
 
@@ -1296,10 +1296,10 @@ const CONFIG = {
     const endX = i => word.offsetWidth * (.06 + i * .19);
     gsap.set(crit, { left: 0, x: startX });
     const tl = gsap.timeline({
-      scrollTrigger: { trigger: sec, start: 'top top', end: desk ? '+=260%' : '+=170%', pin: true, scrub: 1, invalidateOnRefresh: true }
+      scrollTrigger: { trigger: sec, start: 'top top', end: desk ? '+=170%' : '+=120%', pin: true, scrub: .35, invalidateOnRefresh: true }
     });
     // the label and word pop in while the section scrolls into view
-    gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top 80%', end: 'top 10%', scrub: 1 } })
+    gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top 80%', end: 'top 10%', scrub: .35 } })
       .from(label, { y: 40, opacity: 0, duration: .3 }, 0)
       .from('#build .build-word .ch', { yPercent: 60, opacity: 0, rotation: i => (i % 2 ? 10 : -10), stagger: .04, duration: .4, ease: 'back.out(1.6)' }, 0);
     crit.forEach((el, i) => {
@@ -1312,14 +1312,14 @@ const CONFIG = {
       .fromTo('.ship-card', { scale: .35, opacity: 0, rotation: -6, y: 60 }, { scale: 1, opacity: 1, rotation: 0, y: 0, duration: .6, ease: 'back.out(1.4)' }, 1.55)
       .fromTo('.avatars .critter', { scale: 0 }, { scale: 1, stagger: .06, duration: .25, ease: 'back.out(2)' }, 1.9)
       .fromTo('.cap-line', { y: 24, opacity: 0 }, { y: 0, opacity: 1, stagger: .12, duration: .3 }, 2.05)
-      .to({}, { duration: .35 });
+      .to({}, { duration: .15 });
   }
 
   // 3. YEARS: letters draw in, squiggle draws itself, tagline pops up
   function animYears() {
     const path = $('.squiggle path'), len = path.getTotalLength();
     gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
-    const tl = gsap.timeline({ scrollTrigger: { trigger: '#years', start: 'top 75%', end: 'center 40%', scrub: 1 } });
+    const tl = gsap.timeline({ scrollTrigger: { trigger: '#years', start: 'top 75%', end: 'center 40%', scrub: .35 } });
     tl.fromTo('.yl', { clipPath: 'inset(0% 100% 0% 0%)', y: 30 }, { clipPath: 'inset(0% 0% 0% 0%)', y: 0, stagger: .12, duration: .5, ease: 'power1.out' })
       .to(path, { strokeDashoffset: 0, duration: .8, ease: 'none' }, '-=.25')
       .from('.tw', { yPercent: 100, opacity: 0, rotation: i => (i % 2 ? 6 : -6), stagger: .08, duration: .3 }, '-=.35');
@@ -1330,7 +1330,7 @@ const CONFIG = {
     const items = $$('.belief');
     gsap.set(items, { autoAlpha: 0 }); gsap.set(items[0], { autoAlpha: 1 });
     const tl = gsap.timeline({
-      scrollTrigger: { trigger: '#beliefs', start: 'top top', end: '+=' + items.length * (desk ? 110 : 85) + '%', pin: true, scrub: 1 }
+      scrollTrigger: { trigger: '#beliefs', start: 'top top', end: '+=' + items.length * (desk ? 75 : 60) + '%', pin: true, scrub: .35 }
     });
     items.forEach((it, i) => {
       const sub = $('.belief-sub', it), cta = $('.belief-cta', it), doo = $$('.doodle', it);
@@ -1339,7 +1339,7 @@ const CONFIG = {
       if (sub) tl.from(sub, { opacity: 0, y: 20, duration: .3 });
       if (doo.length) tl.from(doo, { scale: 0, rotation: -25, opacity: 0, stagger: .15, duration: .35, ease: 'back.out(2.2)' });
       if (cta) tl.from(cta, { opacity: 0, y: 20, duration: .3 });
-      tl.to({}, { duration: .5 });
+      tl.to({}, { duration: .25 });
       if (i < items.length - 1) tl.to(it, { autoAlpha: 0, y: -40, duration: .3 });
     });
   }
@@ -1347,12 +1347,12 @@ const CONFIG = {
   // 5. NOIDA: title pops in, rickshaw drives right, metro runs left
   function animNoida() {
     gsap.from('#noida .ch', { yPercent: 80, opacity: 0, rotation: i => (i % 2 ? 8 : -8), stagger: .03, ease: 'back.out(1.6)',
-      scrollTrigger: { trigger: '#noida', start: 'top 80%', end: 'top 25%', scrub: 1 } });
-    const tl = gsap.timeline({ scrollTrigger: { trigger: '#noida', start: 'top bottom', end: 'bottom top', scrub: .6 } });
+      scrollTrigger: { trigger: '#noida', start: 'top 80%', end: 'top 25%', scrub: .35 } });
+    const tl = gsap.timeline({ scrollTrigger: { trigger: '#noida', start: 'top bottom', end: 'bottom top', scrub: .3 } });
     tl.fromTo('#rick', { x: -280 }, { x: 1720, ease: 'none' }, 0)
       .fromTo('#rick .spin', { rotation: 0 }, { rotation: 6800, ease: 'none', transformOrigin: '50% 50%' }, 0)
       .fromTo('#metro', { x: 1650 }, { x: -640, ease: 'none' }, 0);
-    gsap.from('.noida-text', { opacity: 0, y: 30, scrollTrigger: { trigger: '.noida-text', start: 'top 92%', end: 'top 65%', scrub: 1 } });
+    gsap.from('.noida-text', { opacity: 0, y: 30, scrollTrigger: { trigger: '.noida-text', start: 'top 92%', end: 'top 65%', scrub: .35 } });
   }
 
   // 6. WORK: pinned horizontal scroll on desktop, stacked cards on mobile
@@ -1362,7 +1362,7 @@ const CONFIG = {
     if (desk) {
       const dist = () => Math.max(0, row.scrollWidth - innerWidth);
       const move = gsap.to(row, { x: () => -dist(), ease: 'none',
-        scrollTrigger: { trigger: sec, start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 1, invalidateOnRefresh: true } });
+        scrollTrigger: { trigger: sec, start: 'top top', end: () => '+=' + dist(), pin: true, scrub: .35, invalidateOnRefresh: true } });
       cards.forEach(c => gsap.fromTo(c, { rotation: 4, y: 50 }, { rotation: -3, y: -20, ease: 'none',
         scrollTrigger: { trigger: c, containerAnimation: move, start: 'left right', end: 'right left', scrub: true } }));
       // background shifts a little for each card
@@ -1382,8 +1382,8 @@ const CONFIG = {
     const path = $('#planePath'), len = path.getTotalLength();
     gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
     const st = desk
-      ? { trigger: '#details', start: 'top top', end: '+=160%', pin: true, scrub: 1 }
-      : { trigger: '#details', start: 'top 80%', end: 'bottom 30%', scrub: 1 };
+      ? { trigger: '#details', start: 'top top', end: '+=100%', pin: true, scrub: .35 }
+      : { trigger: '#details', start: 'top 80%', end: 'bottom 30%', scrub: .35 };
     const tl = gsap.timeline({ scrollTrigger: st });
     tl.from('.dl-in', { yPercent: 105, rotation: 3, stagger: .2, duration: .6, ease: 'power2.out' }, 0)
       .set('#plane', { opacity: 1 }, .01)
@@ -1395,7 +1395,7 @@ const CONFIG = {
   // 8. RIPPLE: rings expand out from the centre like a tunnel
   function animRipple(desk) {
     const rings = $$('.ring');
-    const tl = gsap.timeline({ scrollTrigger: { trigger: '#ripple', start: 'top top', end: desk ? '+=130%' : '+=80%', pin: true, scrub: 1 } });
+    const tl = gsap.timeline({ scrollTrigger: { trigger: '#ripple', start: 'top top', end: desk ? '+=85%' : '+=55%', pin: true, scrub: .35 } });
     tl.fromTo(rings, { scale: 0, opacity: 1 }, { scale: i => 1 + i * .85, opacity: i => 1 - i * .07, stagger: .08, duration: 1, ease: 'power2.out' }, 0)
       .fromTo('.ripple-label', { opacity: 0, scale: .8 }, { opacity: 1, scale: 1, duration: .4 }, .1)
       .to(rings, { scale: i => (1 + i * .85) * 2.4, opacity: 0, stagger: .04, duration: .8, ease: 'power2.in' }, 1.1)
@@ -1407,7 +1407,7 @@ const CONFIG = {
   function animContact() {
     const th = $$('.th');
     gsap.set(th, { x: 200, y: 125, scale: 0, transformOrigin: '50% 50%' });
-    const tl = gsap.timeline({ scrollTrigger: { trigger: '#contact', start: 'top bottom', end: 'bottom bottom', scrub: 1 } });
+    const tl = gsap.timeline({ scrollTrigger: { trigger: '#contact', start: 'top bottom', end: 'bottom bottom', scrub: .35 } });
     tl.fromTo('.me-wrap', { yPercent: 75 }, { yPercent: 0, duration: 1, ease: 'power2.out' }, 0)
       .from('.contact-top > *', { y: 40, opacity: 0, stagger: .12, duration: .5 }, .1)
       .from('.sel', { opacity: 0, duration: .2 }, .45)
