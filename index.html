@@ -1,70 +1,3 @@
-
-prakhar-portfolio-v15.html
-prakhar-portfolio-v15.html
-HTML
-rework on this and make it more attractive and qonderful add smooth animations
-
-Reworking an uploaded portfolio webpage.
-Reworking an uploaded portfolio webpage.
-I’ll rework the portfolio with a stronger visual identity and smooth animations, keeping your content and links intact.
-
-Created a file, shared a file, and 2 more steps
-I reworked your portfolio in prakhar-portfolio-v16.html. It keeps the same clean, spacious feel, with your content and links intact.
-
-What changed
-
-Hero: the headline slides up line by line. The intro, buttons and a scroll cue fade in after it. Two soft colour shapes drift slowly in the background.
-Type: a thin italic serif in your accent colour now highlights key words (“useful things”, “story”, “simpler”).
-Navigation: a highlight follows whichever section you’re reading. The bar hides when you scroll down and comes back when you scroll up.
-Scrolling: sections fade up as they come into view. The “How I work” line lights up word by word as you scroll past it.
-Cards: on hover they tilt slightly and show a soft spotlight under the cursor. The CovidSewak number counts up to 10,000. The case study panels open and close smoothly.
-Small touches: buttons drift a little toward the cursor, and a soft cursor ring grows over links. The resume button only appears after you scroll past the hero. Anyone with “reduce motion” turned on gets a calm, still version.
-Things I fixed or cut
-
-All three case study panels had the same BroAreYouCooked text. I wrote new text for Thanks.com and Zendesk based on what those roles involved, so please check it and add real details or numbers.
-BroAreYouCooked appeared in both Work and Labs. It now sits only in Work, as the featured card.
-I removed the extra intro paragraphs before Work, the PM/AI/0→1/∞ strip, and the “Right now” nav link. They made the page feel busier without adding much.
-One honest flag: the page still says “I manage projects” and “PM by role,” but you’ve said you want to be seen as a Forward Deployed Engineer or AI Product Manager. The headline is the first thing recruiters read, so I’d change it next. The Experience section is also generic. Listing your real roles in order (MerchantSaheb, Inspired Monks, ASIATEFL, Thanks.com, O.C. Tanner) would be more convincing. Want me to do both?
-
-
-Prakhar portfolio v16
-Code·HTML 
-Pasted text.txt
-Pasted text.txt
-TXT
-Adjusting critter positions for static, non-animated layout modes.
-I’ll build this as a single HTML file with GSAP, ScrollTrigger and Lenis. First I’ll check what I can use here to test it in a real browser.
-
-Created a file, shared a file, and 19 more steps
-The new site is built as one HTML file, prakhar-portfolio-v17.html. All nine sections are there, and I tested them in a real browser on desktop, on a phone-sized screen, and with reduced motion turned on.
-
-How it’s built
-
-It’s plain HTML, CSS and JS with GSAP, ScrollTrigger and Lenis loaded from a CDN. It works on GitHub Pages or any static host.
-All copy, section colors, links, projects and the cartoon’s skin, hair and shirt colors live in one CONFIG object at the top of the script.
-“7+ YEARS” is calculated from 2019, so it updates itself each year.
-The sound is generated in the browser: a soft synth pad plus tiny clicks on hover. There are no audio files to host, and nothing plays until someone clicks the toggle.
-On phones, the hero and Work sections turn into vertical stacks and the pinned sections are shorter.
-With reduced motion on, there’s no pinning or scroll scrubbing. Sections just fade in.
-What you need to fill in
-
-Screenshots: add an image path to each project’s image field. Until then each card shows an “Add screenshot” box.
-Copy marked “Placeholder” in the Cue, NCR Corporate Map, Still, Snake Anywhere and Inspired Monks cards.
-The cartoon of you is generic, so adjust its colors in CONFIG.avatar.
-Two things to know
-
-My test browser couldn’t reach Fontshare, so I never saw Melodrama render (my screenshots show a fallback serif). It will load normally once the page is online, but check the serif headings once.
-This is a heavy page: about 21,000px of scrolling on desktop, with grain over everything. That’s great for an experience, but a recruiter who skims will only find your resume link at the very bottom. I’d add a “Resume” link to the top nav next to Contact. Want me to do that?
-
-Prakhar portfolio v17
-Code·HTML 
-
-
-
-
-
-
-Prakhar portfolio v17 · HTML
 <!doctype html>
 <html lang="en">
 <head>
@@ -73,13 +6,13 @@ Prakhar portfolio v17 · HTML
 <title>Prakhar Singh · Forward Deployed Engineer & AI Product Manager</title>
 <meta name="description" content="Prakhar Singh is a Forward Deployed Engineer and AI Product Manager in Noida who builds and ships products end to end with AI." />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%236A4578'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='Arial Narrow,Arial,sans-serif' font-size='26' font-weight='800' fill='%23F4F2FF'%3EPS%3C/text%3E%3C/svg%3E">
- 
+
 <!-- Fonts: Big Shoulders Display (Google) + Melodrama (Fontshare, free) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=melodrama@300,400,500&display=swap" rel="stylesheet">
- 
+
 <style>
 /* =====================================================================
    BASE
@@ -102,12 +35,12 @@ button{font:inherit;color:inherit}
 .mixed{text-transform:none}
 .serif{font-family:var(--serif);font-weight:300}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
- 
+
 /* Lenis */
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
 .lenis.lenis-stopped{overflow:hidden}
- 
+
 /* =====================================================================
    GLOBAL LAYERS (back to front)
    ===================================================================== */
@@ -121,7 +54,7 @@ main{position:relative;z-index:3}
 @keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-5%)}60%{transform:translate(-6%,-2%)}80%{transform:translate(4%,4%)}100%{transform:translate(-2%,-3%)}}
 /* the inset device "screen": 10px black + 20px radius */
 .frame{position:fixed;inset:10px;border-radius:20px;box-shadow:0 0 0 60px #000;pointer-events:none;z-index:90}
- 
+
 /* =====================================================================
    FIXED UI
    ===================================================================== */
@@ -150,7 +83,7 @@ main{position:relative;z-index:3}
 .nav{display:flex;gap:24px}
 .nav a{font-size:15px;font-weight:800;letter-spacing:.08em;display:inline-flex}
 .l{display:inline-block;will-change:transform}
- 
+
 /* ruler progress bar */
 .ruler{position:fixed;left:26px;right:26px;bottom:18px;height:48px;z-index:60}
 .ruler-labels{position:absolute;left:0;right:0;top:0;height:18px}
@@ -164,7 +97,7 @@ main{position:relative;z-index:3}
 .ruler-ticks::before{height:8px;background:repeating-linear-gradient(90deg,rgba(244,242,255,.32) 0 1px,transparent 1px 8px)}
 .ruler-ticks::after{height:16px;background:repeating-linear-gradient(90deg,rgba(244,242,255,.55) 0 1px,transparent 1px 80px)}
 .ruler-head{position:absolute;left:0;bottom:0;width:2px;height:26px;margin-left:-1px;background:#fff;border-radius:2px;box-shadow:0 0 10px var(--accent),0 0 2px #fff;will-change:transform}
- 
+
 /* custom cursor */
 .has-cursor,.has-cursor *{cursor:none!important}
 .cursor{position:fixed;left:0;top:0;z-index:100;pointer-events:none;opacity:0;transition:opacity .3s}
@@ -174,13 +107,13 @@ main{position:relative;z-index:3}
 .c-ring{width:40px;height:40px;margin:-20px 0 0 -20px}
 .c-ring i{display:block;width:100%;height:100%;border-radius:50%;border:1.5px solid var(--text);transition:transform .35s cubic-bezier(.2,.9,.3,1.25),background .3s,border-color .3s}
 .cursor-big .c-ring i{transform:scale(1.9);background:rgba(186,186,251,.16);border-color:var(--accent)}
- 
+
 /* hard offset shadow + press-down, for buttons and stickers */
 .hard{border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);transition:transform .12s ease,box-shadow .12s ease}
 .hard:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
 .hard:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--ink)}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px 11px;border-radius:14px;background:var(--accent);color:var(--ink);font-family:var(--cond);font-weight:800;font-size:17px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
- 
+
 /* =====================================================================
    SHARED PIECES
    ===================================================================== */
@@ -190,7 +123,7 @@ main{position:relative;z-index:3}
 .chi{display:inline-block}
 .spark{position:absolute;fill:var(--text);opacity:.55;animation:twinkle 3.2s ease-in-out infinite}
 @keyframes twinkle{0%,100%{transform:scale(.6) rotate(0);opacity:.25}50%{transform:scale(1) rotate(25deg);opacity:.8}}
- 
+
 /* googly-eyed critters */
 .critter{--s:84px;position:absolute;left:0;top:calc(var(--s) * -1);width:var(--s);height:var(--s);will-change:transform}
 .critter-body{position:relative;width:100%;height:100%;border-radius:50%;background:var(--c);border:3px solid var(--ink);box-shadow:inset -7px -8px 0 rgba(0,0,0,.14);animation:squish 1.5s ease-in-out infinite}
@@ -199,7 +132,7 @@ main{position:relative;z-index:3}
 .eye:nth-child(1){left:12%}.eye:nth-child(2){right:12%}
 .pupil{position:absolute;left:27%;top:27%;width:46%;height:46%;border-radius:50%;background:var(--ink);will-change:transform}
 .mouth{position:absolute;left:39%;bottom:17%;width:22%;height:12%;border:2.5px solid var(--ink);border-top:0;border-radius:0 0 30px 30px}
- 
+
 /* =====================================================================
    1. HELLO
    ===================================================================== */
@@ -212,7 +145,7 @@ main{position:relative;z-index:3}
 @keyframes wave{to{transform:translateX(-400px)}}
 .hello-foot{position:absolute;left:7vw;right:7vw;bottom:96px;display:flex;justify-content:space-between;gap:20px;font-size:16px;font-weight:800;letter-spacing:.12em;z-index:3}
 .hello-foot .hint{color:var(--accent)}
- 
+
 /* =====================================================================
    2. BUILD
    ===================================================================== */
@@ -240,7 +173,7 @@ main{position:relative;z-index:3}
 .ship-btn:active{box-shadow:0 0 0 var(--accent)}
 .ship-caption{margin:0;text-align:center;font-size:clamp(20px,2.3vw,32px);line-height:1.25;max-width:780px}
 .cap-line{display:block}
- 
+
 /* =====================================================================
    3. YEARS
    ===================================================================== */
@@ -251,7 +184,7 @@ main{position:relative;z-index:3}
 .squiggle path{fill:none;stroke:var(--accent);stroke-width:7;stroke-linecap:round}
 .years-tag{font-size:clamp(30px,5.2vw,90px);font-weight:900;margin:0;line-height:.95;letter-spacing:.01em}
 .tw{display:inline-block}
- 
+
 /* =====================================================================
    4. BELIEFS
    ===================================================================== */
@@ -269,7 +202,7 @@ main{position:relative;z-index:3}
 .d1{left:7vw;top:-26vh}.d2{right:8vw;top:-22vh}.d3{right:13vw;bottom:-24vh}
 .flag{transform-box:fill-box;transform-origin:left center;animation:flag 1.1s ease-in-out infinite alternate}
 @keyframes flag{to{transform:skewY(-9deg) scaleX(.88)}}
- 
+
 /* =====================================================================
    5. NOIDA
    ===================================================================== */
@@ -282,7 +215,7 @@ main{position:relative;z-index:3}
 .rick-bob{transform-box:fill-box;animation:rickbob .3s ease-in-out infinite alternate}
 @keyframes rickbob{to{transform:translateY(-2px)}}
 .noida-text{font-size:clamp(20px,2vw,30px);line-height:1.32;max-width:660px;margin:2vh 6vw 0}
- 
+
 /* =====================================================================
    6. WORK
    ===================================================================== */
@@ -299,12 +232,23 @@ main{position:relative;z-index:3}
 .card-label span:last-child{opacity:.75;text-align:right}
 .shot{position:relative;border:5px solid var(--ink);border-radius:18px;aspect-ratio:16/10;overflow:hidden;background:#1d1a2a}
 .shot img{width:100%;height:100%;object-fit:cover;display:block}
-.shot.ph{display:grid;place-items:center;background:repeating-linear-gradient(-45deg,rgba(255,255,255,.07) 0 14px,transparent 14px 28px),rgba(20,17,31,.35)}
-.shot.ph span{font-weight:800;letter-spacing:.12em;font-size:13px;opacity:.75;text-transform:uppercase;padding:6px 10px;border:1.5px dashed rgba(244,242,255,.5);border-radius:8px}
+.shot.mark{container-type:inline-size;display:grid;place-items:center;background:
+  radial-gradient(circle at 1px 1px,rgba(244,242,255,.16) 1.2px,transparent 1.6px) 0 0/18px 18px,
+  radial-gradient(120% 90% at 30% 20%,rgba(255,255,255,.14),transparent 60%),var(--mbg)}
+.mark-wave{position:absolute;left:0;top:50%;width:200%;height:40%;margin-top:-6%;animation:wave 6s linear infinite;pointer-events:none}
+.mark-wave path{fill:none;stroke:rgba(186,186,251,.55);stroke-width:2.5;vector-effect:non-scaling-stroke}
+.mark-word{position:relative;z-index:1;font-size:var(--fs);line-height:.8;font-weight:900;color:var(--text);display:flex;text-shadow:.04em .05em 0 rgba(20,17,31,.55)}
+.mark-word .ch{transform-origin:50% 80%}
+.mark .spark{opacity:.7}
+.mark-num{position:absolute;left:12px;top:10px;font-size:12px;font-weight:800;letter-spacing:.14em;opacity:.7;z-index:1}
+.soon{position:absolute;right:12px;top:12px;z-index:2;background:#FFF4D6;color:#111;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);border-radius:9px;padding:5px 9px 4px;font-size:13px;font-weight:900;letter-spacing:.08em;transform:rotate(6deg);animation:soonbob 2.4s ease-in-out infinite}
+@keyframes soonbob{0%,100%{transform:rotate(6deg) translateY(0)}50%{transform:rotate(3deg) translateY(-3px)}}
+.soon-note{display:inline-flex;align-items:center;gap:8px;border-bottom:0!important;color:var(--accent)}
+.mark-tag{position:absolute;right:10px;bottom:10px;z-index:1;font-size:11px;font-weight:800;letter-spacing:.1em;padding:4px 8px 3px;border-radius:7px;background:rgba(20,17,31,.55)}
 .card h3{font-family:var(--serif);font-size:clamp(25px,2.2vw,35px);line-height:1.08;font-weight:400;margin:20px 4px 10px}
 .card p{font-size:19px;line-height:1.3;margin:0 4px;opacity:.88;font-weight:500}
 .card .more{display:inline-block;margin:16px 4px 0;font-weight:800;letter-spacing:.09em;font-size:15px;border-bottom:2px solid currentColor;text-transform:uppercase}
- 
+
 /* =====================================================================
    7. DETAILS
    ===================================================================== */
@@ -315,7 +259,7 @@ main{position:relative;z-index:3}
 .dl{display:block;overflow:hidden;padding-bottom:.08em}
 .dl-in{display:inline-block;white-space:nowrap}
 .details-sub{position:relative;z-index:2;margin:5vh 0 0;font-size:clamp(15px,1.4vw,20px);font-weight:800;letter-spacing:.14em;color:var(--accent);max-width:720px;line-height:1.5}
- 
+
 /* =====================================================================
    8. RIPPLE
    ===================================================================== */
@@ -323,7 +267,7 @@ main{position:relative;z-index:3}
 .rings{position:absolute;inset:0;display:grid;place-items:center}
 .ring{grid-area:1/1;width:22vmax;height:22vmax;border-radius:50%;border:2px solid var(--accent);will-change:transform}
 .ripple-label{position:relative;font-size:clamp(18px,2vw,28px);font-weight:800;letter-spacing:.2em}
- 
+
 /* =====================================================================
    9. CONTACT
    ===================================================================== */
@@ -355,12 +299,12 @@ main{position:relative;z-index:3}
 .copy{background:#fff;color:#111;border-radius:10px;padding:8px 12px 7px;font-size:15px;font-weight:800;letter-spacing:.08em;cursor:pointer;font-family:var(--cond);min-width:92px}
 .contact-links{display:flex;gap:12px;flex-wrap:wrap}
 .contact-links .btn{background:#fff}
- 
+
 @media (max-width:1200px) and (min-width:900px){
   .me-wrap{height:min(46vh,460px)}
   .contact-bottom{bottom:84px}
 }
- 
+
 /* =====================================================================
    STACK = mobile or reduced motion: horizontal sections become vertical
    ===================================================================== */
@@ -379,7 +323,7 @@ html.stack .card{width:auto}
   html.stack .work-title{font-size:min(9vw,150px)}
   html.stack .hello-title{font-size:min(22vw,27vh)}
 }
- 
+
 /* STATIC = reduced motion only: no pinning, everything sits in normal flow */
 html.static .build{height:auto}
 html.static .build-stage{position:relative;padding:120px 0 80px}
@@ -391,7 +335,7 @@ html.static .belief{margin-bottom:34vh}
 html.static .details{height:auto;min-height:100vh;padding:18vh 9vw}
 html.static .ripple{height:60vh}
 html.static .ring{transform:scale(var(--k));opacity:.45}
- 
+
 /* =====================================================================
    MOBILE
    ===================================================================== */
@@ -439,12 +383,12 @@ html.static .ring{transform:scale(var(--k));opacity:.45}
   .me-wrap{height:42vh}
   .contact-bottom{position:relative;left:auto;right:auto;bottom:auto;flex-direction:column;align-items:flex-start;padding:28px 7vw 0}
 }
- 
+
 /* =====================================================================
    REDUCED MOTION: stop decorative loops
    ===================================================================== */
 @media (prefers-reduced-motion:reduce){
-  #grain,.wave,.critter-body,.spark,.flag,.dot,.float,.steam,.rick-bob,.peek .critter,.bubble.show span,.sound.on .eq i{animation:none!important}
+  .soon,#grain,.wave,.critter-body,.spark,.flag,.dot,.float,.steam,.rick-bob,.peek .critter,.bubble.show span,.sound.on .eq i{animation:none!important}
   .peek .critter{transform:translateY(0)}
   .sound.on .eq i{height:9px}
 }
@@ -456,7 +400,7 @@ html.static .ring{transform:scale(var(--k));opacity:.45}
   <canvas id="stars" aria-hidden="true"></canvas>
   <div id="grain" aria-hidden="true"></div>
   <div class="frame" aria-hidden="true"></div>
- 
+
   <!-- Fixed UI -->
   <header class="ui">
     <div class="ui-left">
@@ -478,30 +422,30 @@ html.static .ring{transform:scale(var(--k));opacity:.45}
       </nav>
     </div>
   </header>
- 
+
   <div class="ruler" id="ruler">
     <div class="ruler-labels" id="rulerLabels"></div>
     <div class="ruler-ticks" id="rulerTicks"></div>
     <div class="ruler-head" id="rulerHead"></div>
   </div>
- 
+
   <div class="cursor" aria-hidden="true"><div class="c-dot"></div><div class="c-ring"><i></i></div></div>
- 
+
   <main id="main"></main>
- 
+
   <noscript>
     <p style="position:relative;z-index:5;padding:120px 8vw;font:400 24px Georgia,serif;color:#F4F2FF">
       Prakhar Singh. Forward Deployed Engineer and AI Product Manager in Noida.
       Email: Prakhar.singh6566@gmail.com
     </p>
   </noscript>
- 
+
   <!-- Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
- 
+
 <script>
 /* =====================================================================
    CONFIG
@@ -516,22 +460,22 @@ const CONFIG = {
   links: {
     linkedin: "https://www.linkedin.com/in/prakhar6566/",
     github:   "https://github.com/prakhar-me",
-    resume:   "https://github.com/prakhar-me/Prakhar.resume/archive/refs/heads/main.zip"
+    resume:   "https://drive.google.com/file/d/1c4JggujxV-kshTaeFMziXxzFuZFMFoNh/view?usp=sharing"
   },
- 
+
   colors: {
     text: "#F4F2FF", accent: "#BABAFB", status: "#7CE38B",
     // section backgrounds (keys match data-color on each section)
     hello: "#6A4578", build: "#545388", beliefs: "#2E2A4F", noida: "#2B6468",
     work: "#4C6230", details: "#7B3F6E", contact: "#5C5A9A"
   },
- 
+
   // the five googly-eyed characters
   critters: ["#E9A47E", "#9FCBB5", "#E8C76A", "#C59BD8", "#8FB3E8"],
- 
+
   // the cartoon of you in the contact section
   avatar: { skin: "#C98B62", hair: "#231B2E", shirt: "#BABAFB" },
- 
+
   copy: {
     hello: {
       title: "HI, I'M PRAKHAR.",
@@ -579,47 +523,48 @@ const CONFIG = {
       getInTouch: "Get in touch"
     }
   },
- 
-  // Work cards. Add a screenshot path in "image" (e.g. "img/cue.png").
+
+  // Work cards. "soon: true" adds a Coming soon sticker. "mark" is the big word on the tile and "markBg" its color.
+  // Add a screenshot path in "image" (e.g. "img/cue.png") to show that instead.
   projects: [
-    { name: "Cue", type: "Browser extension · AI",
-      headline: "A quiet AI copilot for interviews and meetings.",
-      desc: "Real-time help in a transparent overlay that sits on top of your call. Placeholder: add the problem, what you built and one result.",
+    { name: "Cue", soon: true, mark: "CuE", markBg: "#6A4578", type: "Browser extension · AI",
+      headline: "A real-time assistant for your interviews.",
+      desc: "Cue listens along during an interview and shows helpful prompts in a transparent overlay that sits right on top of your call.",
       image: "", link: "", linkLabel: "",
       card: "#5A7238", tint: "rgba(186,186,251,.10)" },
-    { name: "NCR Corporate Map", type: "Web app",
+    { name: "NCR Corporate Map", soon: true, mark: "NCR", markBg: "#2B6468", type: "Web app",
       headline: "Every company in Delhi NCR, and who is hiring.",
-      desc: "A map of NCR companies with hiring signals, so a job search starts with a map instead of a guess. Placeholder copy.",
+      desc: "A map of companies across Delhi NCR with the jobs they have open, so a job search starts with a map instead of a guess.",
       image: "", link: "", linkLabel: "",
       card: "#4F6A3E", tint: "rgba(124,227,139,.08)" },
-    { name: "Baton", type: "Chrome extension",
+    { name: "Baton", mark: "BaTON", markBg: "#545388", type: "Chrome extension",
       headline: "Pass your AI chat to any model.",
       desc: "One click moves a whole conversation from one AI tool to another, with no context lost.",
       image: "", link: "https://github.com/prakhar-me/baton-extension/archive/refs/heads/main.zip", linkLabel: "Download",
       card: "#5E6A33", tint: "rgba(232,199,106,.09)" },
-    { name: "Still", type: "Web app",
-      headline: "One small app that does one thing well.",
-      desc: "Placeholder: say what Still does and why you made it.",
+    { name: "Still", mark: "STiLL", markBg: "#2E2A4F", type: "Web app",
+      headline: "Manifest what you want, and find some peace.",
+      desc: "A manifestation app that helps you set your intentions, come back to them every day, and slow down while you do.",
       image: "", link: "https://still-3w2.caffeine.xyz/", linkLabel: "Visit",
       card: "#4A6638", tint: "rgba(159,203,181,.09)" },
-    { name: "Snake Anywhere", type: "Browser game",
+    { name: "Snake Anywhere", mark: "SNaKE", markBg: "#7B3F6E", type: "Browser game",
       headline: "Play Snake on any website.",
-      desc: "Turns whatever page you are on into a game board. Placeholder: add how people use it.",
+      desc: "Turns whatever page you are on into a game board. Built for the moment you need a two-minute break.",
       image: "", link: "https://github.com/prakhar-me/snake-anywhere/archive/refs/heads/main.zip", linkLabel: "Download",
       card: "#63733A", tint: "rgba(233,164,126,.09)" },
-    { name: "Inspired Monks", type: "Agency",
-      headline: "Web work for WhatsApp Business, Johnson & Johnson and IIID.",
-      desc: "The agency I started. We designed and built sites for brands of every size. Placeholder: add one highlight.",
+    { name: "Inspired Monks", mark: "MoNKS", markBg: "#5C5A9A", type: "Agency",
+      headline: "A digital agency that builds what each client needs.",
+      desc: "The agency I started. We deliver digital products shaped around client demand, for brands like WhatsApp Business, Johnson & Johnson and IIID.",
       image: "", link: "", linkLabel: "",
       card: "#536B42", tint: "rgba(197,155,216,.09)" },
-    { name: "Culture Cloud", type: "O.C. Tanner · Web + Docs",
+    { name: "Culture Cloud", mark: "CLoUD", markBg: "#3F3C6E", type: "O.C. Tanner · Web + Docs",
       headline: "Marketing pages in Webflow and help guides people actually read.",
       desc: "Built marketing pages for the Culture Cloud platform and wrote its user guides in Zendesk.",
       image: "", link: "", linkLabel: "",
       card: "#5A6E3F", tint: "rgba(143,179,232,.09)" }
   ]
 };
- 
+
 /* =====================================================================
    APP
    ===================================================================== */
@@ -633,15 +578,15 @@ const CONFIG = {
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
   const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   let lenis = null;
- 
+
   /* ---------- theme ---------- */
   root.style.setProperty('--text', C.colors.text);
   root.style.setProperty('--accent', C.colors.accent);
   root.style.setProperty('--ok', C.colors.status);
   $('#bg').style.backgroundColor = C.colors.hello;
- 
+
   /* ---------- small markup helpers ---------- */
- 
+
   // Splits text into word > letter spans. "tilt" gives each letter a fixed,
   // slightly different rotation and skew so it looks like cut-out paper.
   function splitWords(text, tilt = 0) {
@@ -651,21 +596,21 @@ const CONFIG = {
       return `<span class="ch"><span class="chi" style="transform:rotate(${r}deg) skewX(${k}deg)">${esc(ch)}</span></span>`;
     }).join('')}</span>`).join(' ');
   }
- 
+
   const critter = (color, cls = '', style = '') =>
     `<div class="critter ${cls}" style="--c:${color};${style}"><div class="critter-body">` +
     `<span class="eye"><i class="pupil"></i></span><span class="eye"><i class="pupil"></i></span><span class="mouth"></span></div></div>`;
- 
+
   const SPARK = 'M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z';
   const sparkle = (l, t, s, d) => `<svg class="spark" viewBox="0 0 24 24" style="left:${l}%;top:${t}%;width:${s}px;animation-delay:${d}s" aria-hidden="true"><path d="${SPARK}"/></svg>`;
- 
+
   // a long sine wave; period is 400px so a -400px CSS loop is seamless
   function wavePath() {
     let d = 'M0 100 Q100 40 200 100';
     for (let x = 400; x <= 3600; x += 200) d += ` T${x} 100`;
     return d;
   }
- 
+
   function starPath(R, r) {
     let d = '';
     for (let i = 0; i < 10; i++) {
@@ -674,7 +619,7 @@ const CONFIG = {
     }
     return d + 'Z';
   }
- 
+
   /* ---------- Noida line-art scene ---------- */
   function sceneSVG() {
     const pillars = Array.from({ length: 12 }, (_, i) => {
@@ -731,7 +676,7 @@ const CONFIG = {
       </g>
     </svg>`;
   }
- 
+
   /* ---------- the cartoon of you ---------- */
   function meSVG() {
     const A = C.avatar, ink = '#14111F';
@@ -766,7 +711,8 @@ const CONFIG = {
       <ellipse cx="94" cy="214" rx="17" ry="24" fill="${A.skin}" stroke="${ink}" stroke-width="6"/>
       <ellipse cx="306" cy="214" rx="17" ry="24" fill="${A.skin}" stroke="${ink}" stroke-width="6"/>
       <ellipse cx="200" cy="205" rx="108" ry="118" fill="${A.skin}" stroke="${ink}" stroke-width="6"/>
-      <ellipse class="me-inside" cx="200" cy="122" rx="76" ry="18" fill="${ink}" opacity="0"/>
+      <defs><radialGradient id="mindGlow" cx="50%" cy="60%" r="60%"><stop offset="0" stop-color="${C.colors.accent}"/><stop offset=".55" stop-color="#3B3466"/><stop offset="1" stop-color="${ink}"/></radialGradient></defs>
+      <ellipse class="me-inside" cx="200" cy="125" rx="88" ry="24" fill="url(#mindGlow)" stroke="${ink}" stroke-width="5" opacity="0"/>
       <g class="svg-eye" data-m="9">
         <circle cx="160" cy="214" r="24" fill="#fff" stroke="${ink}" stroke-width="5"/>
         <circle class="pupil" cx="160" cy="214" r="10" fill="${ink}"/>
@@ -780,13 +726,34 @@ const CONFIG = {
       <circle cx="128" cy="258" r="13" fill="#E7838E" opacity=".45"/>
       <circle cx="272" cy="258" r="13" fill="#E7838E" opacity=".45"/>
       <path d="M160 268Q200 306 240 268Q200 282 160 268Z" fill="#7A2E3E" stroke="${ink}" stroke-width="5" stroke-linejoin="round"/>
+      <!-- sideburns stay put when the lid opens -->
+      <path d="M99 188C98 204 100 218 106 230L115 227C110 214 109 201 110 188Z" fill="${A.hair}" stroke="${ink}" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M301 188C302 204 300 218 294 230L285 227C290 214 291 201 290 188Z" fill="${A.hair}" stroke="${ink}" stroke-width="4" stroke-linejoin="round"/>
+      <!-- the hair is the lid: short cut with volume on top and a fringe swept to the left -->
       <g class="me-lid">
-        <path d="M91 200C82 110 130 80 200 80C270 80 318 110 309 200C294 160 264 140 240 150C222 128 180 128 160 150C136 138 106 160 91 200Z"
+        <path d="M98 196C84 150 92 104 132 82C150 72 168 70 182 72C196 56 226 50 252 58C290 70 316 106 312 150C311 170 308 186 303 198C298 178 292 164 282 154C262 146 238 146 218 154C190 164 156 168 124 162C112 166 102 178 98 196Z"
               fill="${A.hair}" stroke="${ink}" stroke-width="6" stroke-linejoin="round"/>
+        <path d="M150 98C176 86 214 84 248 94M128 130C160 116 200 112 238 120M252 124C272 132 288 146 298 164M212 150C186 150 160 152 138 158"
+              fill="none" stroke="rgba(244,242,255,.2)" stroke-width="4" stroke-linecap="round"/>
+        <path d="M200 66C216 60 234 60 250 67" fill="none" stroke="rgba(244,242,255,.38)" stroke-width="5" stroke-linecap="round"/>
       </g>
     </svg>`;
   }
- 
+
+  // Themed tile used instead of a screenshot: the project's word in cut-out letters
+  function markTile(p, i) {
+    const word = p.mark || p.name.slice(0, 4);
+    const fs = Math.min(44, 175 / [...word].length).toFixed(1);
+    return `<div class="shot mark" style="--mbg:${p.markBg || '#2E2A4F'}" aria-label="${esc(p.name)}">
+      <svg class="mark-wave" viewBox="0 0 3600 200" preserveAspectRatio="none" aria-hidden="true"><path d="${wavePath()}"/></svg>
+      ${sparkle(14 + (i * 23) % 60, 16, 16, -i * .7)}${sparkle(78 - (i * 17) % 40, 70, 12, -i * .4 - 1)}
+      <span class="mark-num cond">${String(i + 1).padStart(3, '0')}</span>
+      <div class="mark-word cond mixed" style="--fs:${fs}cqw" aria-hidden="true">${splitWords(word, 7)}</div>
+      <span class="mark-tag cond">${esc(p.type.split(' · ')[0])}</span>
+      ${p.soon ? `<span class="soon cond">Coming soon</span>` : ''}
+    </div>`;
+  }
+
   function doodles() {
     return `
     <svg class="doodle d1" viewBox="0 0 160 110" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true">
@@ -810,16 +777,16 @@ const CONFIG = {
       <path class="flag" d="M80 10L124 22L80 34Z" style="fill:var(--accent)" stroke-linejoin="round"/>
     </svg>`;
   }
- 
+
   /* ---------- render all sections from CONFIG ---------- */
   function render() {
     const years = new Date().getFullYear() - C.startYear;
     const yearsText = `${years}${T.years.suffix}`;
     const P = C.projects;
- 
+
     $('#uiName').textContent = C.name.toUpperCase();
     $('#uiStatus').textContent = C.status;
- 
+
     $('#main').innerHTML = `
     <!-- 1. HELLO -->
     <section id="hello" class="sec hello" data-color="hello" data-label="HELLO">
@@ -830,7 +797,7 @@ const CONFIG = {
       </div>
       <div class="hello-foot cond"><span>${esc(T.hello.role)}</span><span class="hint">${esc(T.hello.hint)}</span></div>
     </section>
- 
+
     <!-- 2. BUILD -->
     <section id="build" class="sec build" data-color="build" data-label="BUILD">
       <div class="build-stage">
@@ -856,7 +823,7 @@ const CONFIG = {
         </div>
       </div>
     </section>
- 
+
     <!-- 3. YEARS -->
     <section id="years" class="sec years" data-color="build">
       <div class="years-inner" data-fade>
@@ -865,7 +832,7 @@ const CONFIG = {
         <p class="years-tag cond mixed">${T.years.tagline.split(' ').map(w => `<span class="tw">${esc(w)}</span>`).join(' ')}</p>
       </div>
     </section>
- 
+
     <!-- 4. BELIEFS -->
     <section id="beliefs" class="sec beliefs" data-color="beliefs" data-label="BELIEFS">
       <div class="beliefs-stage">
@@ -878,14 +845,14 @@ const CONFIG = {
         </div>`).join('')}
       </div>
     </section>
- 
+
     <!-- 5. NOIDA -->
     <section id="noida" class="sec noida" data-color="noida" data-label="NOIDA">
       <h2 class="noida-title cond mixed" aria-label="${esc(T.noida.title)}" data-fade>${splitWords(T.noida.title, 4)}</h2>
       <div data-fade>${sceneSVG()}</div>
       <p class="noida-text serif" data-fade>${esc(T.noida.text)}</p>
     </section>
- 
+
     <!-- 6. WORK -->
     <section id="work" class="sec work" data-color="work" data-label="WORK">
       <div class="work-row">
@@ -895,19 +862,20 @@ const CONFIG = {
           <p class="work-lede serif">${esc(T.work.intro)}</p>
           <a class="btn hard" href="${C.links.github}" target="_blank" rel="noopener">${esc(T.work.more)} ↗</a>
         </div>
-        ${P.map(p => `
+        ${P.map((p, i) => `
         <article class="card" style="--card:${p.card}" data-fade>
           <div class="card-label cond"><span>${esc(p.name)}</span><span>${esc(p.type)}</span></div>
           ${p.image
             ? `<div class="shot"><img src="${esc(p.image)}" alt="${esc(p.name)} screenshot" loading="lazy"></div>`
-            : `<div class="shot ph"><span>Add screenshot</span></div>`}
+            : markTile(p, i)}
           <h3>${esc(p.headline)}</h3>
           <p class="cond mixed">${esc(p.desc)}</p>
+          ${p.soon ? `<span class="more soon-note cond"><i class="dot"></i>Coming soon</span>` : ''}
           ${p.link ? `<a class="more cond" href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.linkLabel || 'View')} ↗</a>` : ''}
         </article>`).join('')}
       </div>
     </section>
- 
+
     <!-- 7. DETAILS -->
     <section id="details" class="sec details" data-color="details" data-label="ABOUT">
       <svg class="plane-layer" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
@@ -920,13 +888,13 @@ const CONFIG = {
       <h2 class="details-text serif" data-fade>${T.details.lines.map(l => `<span class="dl"><span class="dl-in">${esc(l)}</span></span>`).join('')}</h2>
       <p class="details-sub cond" data-fade>${esc(T.details.sub)}</p>
     </section>
- 
+
     <!-- 8. RIPPLE -->
     <section id="ripple" class="sec ripple" data-color="contact" aria-hidden="true">
       <div class="rings">${Array.from({ length: 10 }, (_, i) => `<div class="ring" style="--k:${(1 + i * .55).toFixed(2)}"></div>`).join('')}</div>
       <div class="ripple-label cond">${esc(T.ripple)}</div>
     </section>
- 
+
     <!-- 9. CONTACT -->
     <section id="contact" class="sec contact" data-color="contact" data-label="CONTACT">
       <div class="contact-top" data-fade>
@@ -955,12 +923,12 @@ const CONFIG = {
         <div class="contact-links">
           <a class="btn hard" href="${C.links.linkedin}" target="_blank" rel="noopener">LinkedIn ↗</a>
           <a class="btn hard" href="${C.links.github}" target="_blank" rel="noopener">GitHub ↗</a>
-          <a class="btn hard" href="${C.links.resume}" target="_blank" rel="noopener">Resume ↓</a>
+          <a class="btn hard" href="${C.links.resume}" target="_blank" rel="noopener">Resume ↗</a>
         </div>
       </div>
     </section>`;
   }
- 
+
   /* =====================================================================
      SOUND: a soft synth pad + tiny UI blips, made with Web Audio
      (no audio files needed). Starts only after the visitor clicks.
@@ -1022,7 +990,7 @@ const CONFIG = {
       o.connect(g); g.connect(ctx.destination); o.start(t); o.stop(t + .14);
     }
   };
- 
+
   function setupSound() {
     const btn = $('#soundBtn'), label = $('#soundLabel'), bubble = $('#bubble');
     const hideBubble = () => bubble.classList.remove('show');
@@ -1044,7 +1012,7 @@ const CONFIG = {
       last = el;
     });
   }
- 
+
   /* =====================================================================
      STARS: one full-screen canvas, twinkling and drifting, with a little
      mouse and scroll parallax. Runs on the GSAP ticker (one rAF loop).
@@ -1054,7 +1022,7 @@ const CONFIG = {
     let W = 0, H = 0, stars = [];
     const m = { x: 0, y: 0, tx: 0, ty: 0 };
     const color = C.colors.text;
- 
+
     function resize() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       W = innerWidth; H = innerHeight;
@@ -1069,7 +1037,7 @@ const CONFIG = {
       }));
       draw(0);
     }
- 
+
     function draw(t) {
       const still = reduceQ.matches;
       ctx.clearRect(0, 0, W, H);
@@ -1096,13 +1064,13 @@ const CONFIG = {
       }
       ctx.globalAlpha = 1;
     }
- 
+
     addEventListener('resize', resize);
     addEventListener('pointermove', e => { m.tx = e.clientX / W - .5; m.ty = e.clientY / H - .5; }, { passive: true });
     resize();
     if (window.gsap) gsap.ticker.add(time => { if (!reduceQ.matches && !document.hidden) draw(time); });
   }
- 
+
   /* ---------- film grain tile, generated once ---------- */
   function setupGrain() {
     const c = document.createElement('canvas'); c.width = c.height = 180;
@@ -1114,7 +1082,7 @@ const CONFIG = {
     x.putImageData(d, 0, 0);
     $('#grain').style.backgroundImage = `url(${c.toDataURL()})`;
   }
- 
+
   /* ---------- custom cursor ---------- */
   function setupCursor() {
     if (!finePointer || !window.gsap) return;
@@ -1131,7 +1099,7 @@ const CONFIG = {
     });
     document.documentElement.addEventListener('mouseleave', () => root.classList.remove('cursor-on'));
   }
- 
+
   /* ---------- googly eyes follow the cursor (or wander on touch) ---------- */
   function setupEyes() {
     const eyes = $$('.eye, .svg-eye').map(el => ({ el, pupil: $('.pupil', el), svg: el.classList.contains('svg-eye') }));
@@ -1158,7 +1126,7 @@ const CONFIG = {
     if (!finePointer) setInterval(() => { mx = Math.random() * innerWidth; my = Math.random() * innerHeight; queue(); }, 1800);
     queue();
   }
- 
+
   /* ---------- nav letters jump on hover ---------- */
   function setupJumpy() {
     $$('.jumpy').forEach(a => {
@@ -1176,7 +1144,21 @@ const CONFIG = {
       });
     });
   }
- 
+
+  /* ---------- work tiles: letters hop when a card is hovered ---------- */
+  function setupTiles() {
+    if (!window.gsap) return;
+    $$('.card').forEach(card => {
+      const ls = $$('.mark-word .ch', card);
+      if (!ls.length) return;
+      card.addEventListener('mouseenter', () => {
+        if (reduceQ.matches) return;
+        gsap.fromTo(ls, { y: 0, rotation: 0 }, { y: '-14%', rotation: () => gsap.utils.random(-12, 12), duration: .2,
+          yoyo: true, repeat: 1, stagger: .05, ease: 'power2.out', overwrite: true });
+      });
+    });
+  }
+
   /* ---------- contact bits: copy email, size tag, sticker spin ---------- */
   function setupContact() {
     const btn = $('#copyBtn');
@@ -1200,13 +1182,13 @@ const CONFIG = {
       });
     }
   }
- 
+
   /* =====================================================================
      SCROLL: smooth scrolling, ruler, background colors
      ===================================================================== */
   let colorMarks = [], labelMarks = [], baseColor = C.colors.hello;
   const bgEl = $('#bg');
- 
+
   function startLenis() {
     if (typeof Lenis === 'undefined') return () => {};
     lenis = new Lenis({ lerp: .085, smoothWheel: true });
@@ -1216,17 +1198,17 @@ const CONFIG = {
     gsap.ticker.lagSmoothing(0);
     return () => { gsap.ticker.remove(tick); lenis.destroy(); lenis = null; };
   }
- 
+
   function scrollToY(y) {
     if (lenis) lenis.scrollTo(y, { duration: 1.8, easing: t => 1 - Math.pow(1 - t, 4) });
     else window.scrollTo({ top: y, behavior: reduceQ.matches ? 'auto' : 'smooth' });
   }
- 
+
   function sectionY(el) {
     const m = labelMarks.find(o => o.el === el);
     return m ? m.st.start + 2 : el.getBoundingClientRect().top + window.scrollY;
   }
- 
+
   // Build the ruler labels once; positions are set in layoutRuler()
   const labelSecs = () => $$('[data-label]');
   function buildRuler() {
@@ -1244,7 +1226,7 @@ const CONFIG = {
       scrollToY(sectionY(t));
     });
   }
- 
+
   // Marker triggers: created after all pins so their start positions include pin spacing
   function createMarks(reduce) {
     const secs = $$('[data-color]');
@@ -1256,7 +1238,7 @@ const CONFIG = {
     const outer = el => (el.parentElement && el.parentElement.classList.contains('pin-spacer')) ? el.parentElement : el;
     labelMarks = labelSecs().map(el => ({ el, st: ScrollTrigger.create({ trigger: outer(el), start: 'top top' }) }));
   }
- 
+
   function layoutRuler() {
     const max = ScrollTrigger.maxScroll(window) || 1;
     $$('.ruler-label').forEach((b, i) => {
@@ -1264,7 +1246,7 @@ const CONFIG = {
       if (m) b.style.left = Math.min(100, Math.max(0, m.st.start / max * 100)) + '%';
     });
   }
- 
+
   // runs on every scroll: moves the ruler tick, highlights the label, blends the bg color
   function onScroll() {
     const y = window.scrollY, max = (window.ScrollTrigger ? ScrollTrigger.maxScroll(window) : root.scrollHeight - innerHeight) || 1;
@@ -1281,12 +1263,12 @@ const CONFIG = {
     }
     bgEl.style.backgroundColor = col;
   }
- 
+
   /* =====================================================================
      SECTION ANIMATIONS
      desk = wide screen with motion, otherwise mobile (lighter pins)
      ===================================================================== */
- 
+
   // 1. HELLO: letters drop in, then the line slides sideways while pinned
   function animHello(desk) {
     const sec = $('#hello'), track = $('.hello-track'), chars = $$('#hello .ch');
@@ -1305,7 +1287,7 @@ const CONFIG = {
         scrollTrigger: { trigger: sec, start: 'top top', end: 'bottom top', scrub: 1 } });
     }
   }
- 
+
   // 2. BUILD: critters roll and bounce over the word, then the product card appears
   function animBuild(desk) {
     const sec = $('#build'), word = $('.build-word'), label = $('.build-label');
@@ -1332,7 +1314,7 @@ const CONFIG = {
       .fromTo('.cap-line', { y: 24, opacity: 0 }, { y: 0, opacity: 1, stagger: .12, duration: .3 }, 2.05)
       .to({}, { duration: .35 });
   }
- 
+
   // 3. YEARS: letters draw in, squiggle draws itself, tagline pops up
   function animYears() {
     const path = $('.squiggle path'), len = path.getTotalLength();
@@ -1342,7 +1324,7 @@ const CONFIG = {
       .to(path, { strokeDashoffset: 0, duration: .8, ease: 'none' }, '-=.25')
       .from('.tw', { yPercent: 100, opacity: 0, rotation: i => (i % 2 ? 6 : -6), stagger: .08, duration: .3 }, '-=.35');
   }
- 
+
   // 4. BELIEFS: one statement at a time, words light up from 15% to 100%
   function animBeliefs(desk) {
     const items = $$('.belief');
@@ -1361,7 +1343,7 @@ const CONFIG = {
       if (i < items.length - 1) tl.to(it, { autoAlpha: 0, y: -40, duration: .3 });
     });
   }
- 
+
   // 5. NOIDA: title pops in, rickshaw drives right, metro runs left
   function animNoida() {
     gsap.from('#noida .ch', { yPercent: 80, opacity: 0, rotation: i => (i % 2 ? 8 : -8), stagger: .03, ease: 'back.out(1.6)',
@@ -1372,7 +1354,7 @@ const CONFIG = {
       .fromTo('#metro', { x: 1650 }, { x: -640, ease: 'none' }, 0);
     gsap.from('.noida-text', { opacity: 0, y: 30, scrollTrigger: { trigger: '.noida-text', start: 'top 92%', end: 'top 65%', scrub: 1 } });
   }
- 
+
   // 6. WORK: pinned horizontal scroll on desktop, stacked cards on mobile
   function animWork(desk) {
     const sec = $('#work'), row = $('.work-row'), cards = $$('.card');
@@ -1394,7 +1376,7 @@ const CONFIG = {
         scrollTrigger: { trigger: c, start: 'top 88%', toggleActions: 'play none none reverse' } }));
     }
   }
- 
+
   // 7. DETAILS: lines rise one by one while a paper plane flies its loop
   function animDetails(desk) {
     const path = $('#planePath'), len = path.getTotalLength();
@@ -1409,7 +1391,7 @@ const CONFIG = {
       .to(path, { strokeDashoffset: 0, duration: 1.6, ease: 'none' }, 0)
       .from('.details-sub', { opacity: 0, y: 20, duration: .4 }, 1);
   }
- 
+
   // 8. RIPPLE: rings expand out from the centre like a tunnel
   function animRipple(desk) {
     const rings = $$('.ring');
@@ -1419,7 +1401,7 @@ const CONFIG = {
       .to(rings, { scale: i => (1 + i * .85) * 2.4, opacity: 0, stagger: .04, duration: .8, ease: 'power2.in' }, 1.1)
       .to('.ripple-label', { opacity: 0, scale: 1.4, duration: .4 }, 1.2);
   }
- 
+
   // 9. CONTACT: you rise up, the lid opens, ideas float out
   const THOUGHT_SPOTS = [[95, -112], [186, -182], [282, -142], [338, -48]];
   function animContact() {
@@ -1432,12 +1414,12 @@ const CONFIG = {
       .from('.sel .h', { scale: 0, stagger: .05, duration: .2, ease: 'back.out(3)' }, .5)
       .from('.contact-bottom > *', { y: 30, opacity: 0, stagger: .1, duration: .3 }, .7)
       .from('.sticker-pos', { scale: 0, duration: .3, ease: 'back.out(2)' }, .8)
-      .to('.me-lid', { rotation: 34, svgOrigin: '306 176', duration: .35, ease: 'power2.out' }, .95)
+      .to('.me-lid', { rotation: 22, y: -22, svgOrigin: '305 196', duration: .35, ease: 'back.out(1.6)' }, .95)
       .to('.me-inside', { opacity: 1, duration: .15 }, .98)
       .to(th, { x: i => THOUGHT_SPOTS[i][0], y: i => THOUGHT_SPOTS[i][1], scale: 1, stagger: .08, duration: .4, ease: 'back.out(1.6)' }, 1.05);
     gsap.to('.me-arm', { rotation: -16, svgOrigin: '300 380', duration: .55, yoyo: true, repeat: -1, ease: 'sine.inOut' });
   }
- 
+
   // Reduced motion: no pins, no scrubbing. Blocks simply fade in.
   function animReduced() {
     $$('[data-fade]').forEach(el => {
@@ -1445,10 +1427,10 @@ const CONFIG = {
       ScrollTrigger.create({ trigger: el, start: 'top 90%', once: true, onEnter: () => gsap.to(el, { opacity: 1, duration: .8 }) });
     });
     gsap.set('.th', { x: i => THOUGHT_SPOTS[i][0], y: i => THOUGHT_SPOTS[i][1], scale: 1 });
-    gsap.set('.me-lid', { rotation: 34, svgOrigin: '306 176' });
+    gsap.set('.me-lid', { rotation: 22, y: -22, svgOrigin: '305 196' });
     gsap.set('.me-inside', { opacity: 1 });
   }
- 
+
   /* =====================================================================
      BOOT
      ===================================================================== */
@@ -1460,8 +1442,9 @@ const CONFIG = {
   setupJumpy();
   setupCursor();
   setupContact();
+  setupTiles();
   buildRuler();
- 
+
   // If the animation libraries fail to load, show a plain readable page
   if (!window.gsap || !window.ScrollTrigger) {
     root.classList.add('stack', 'static');
@@ -1471,10 +1454,10 @@ const CONFIG = {
     }, { passive: true });
     return;
   }
- 
+
   gsap.registerPlugin(ScrollTrigger);
   if (window.MotionPathPlugin) gsap.registerPlugin(MotionPathPlugin);
- 
+
   const mm = gsap.matchMedia();
   mm.add({
     desk: '(min-width: 900px) and (prefers-reduced-motion: no-preference)',
@@ -1485,7 +1468,7 @@ const CONFIG = {
     root.classList.toggle('stack', !desk);
     root.classList.toggle('static', !!reduce);
     const stopLenis = reduce ? () => {} : startLenis();
- 
+
     if (reduce) animReduced();
     else {
       animHello(desk); animBuild(desk); animYears(); animBeliefs(desk); animNoida();
@@ -1497,7 +1480,7 @@ const CONFIG = {
     requestAnimationFrame(() => ScrollTrigger.refresh());
     return () => { stopLenis(); colorMarks = []; labelMarks = []; };
   });
- 
+
   ScrollTrigger.addEventListener('refresh', () => { layoutRuler(); onScroll(); });
   addEventListener('scroll', onScroll, { passive: true });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ScrollTrigger.refresh());
@@ -1506,5 +1489,3 @@ const CONFIG = {
 </script>
 </body>
 </html>
- 
-Claude finished the response
